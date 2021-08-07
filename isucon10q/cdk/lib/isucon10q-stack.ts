@@ -31,6 +31,10 @@ export class Isucon10QStack extends cdk.Stack {
         ec2.Port.tcp(port),
       )
     }
+    securityGroup.addIngressRule(
+      ec2.Peer.ipv4("192.168.0.0/16"),
+      ec2.Port.allTcp(),
+    )
 
     const role = new iam.Role(this, `${id}-IAM-Role`, {
       assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
