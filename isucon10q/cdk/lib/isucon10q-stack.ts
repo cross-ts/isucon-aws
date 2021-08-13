@@ -25,12 +25,16 @@ export class Isucon10QStack extends cdk.Stack {
 
     // NOTE: prefixListId set in ~/.cdk.json
     const prefixListId = this.node.tryGetContext('prefixListId')
-    for (var port of [22, 80, 443]) {
+    for (var port of [22, 80, 443, 3306]) {
       securityGroup.addIngressRule(
         ec2.Peer.prefixList(prefixListId),
         ec2.Port.tcp(port),
       )
     }
+    securityGroup.addIngressRule(
+      ec2.Peer.ipv4("192.168.0.0/16"),
+      ec2.Port.allTcp(),
+    )
 
     const role = new iam.Role(this, `${id}-IAM-Role`, {
       assumedBy: new iam.ServicePrincipal('ec2.amazonaws.com'),
