@@ -55,7 +55,7 @@ export class Isucon11PStack extends cdk.Stack {
     // NOTE: レギュレーションに合わせるために論理1coreしか使わないようにする
     // See: https://github.com/isucon/isucon11-prior/blob/main/webapp/doc/MANUAL.md
     const userDataScript = readFileSync('lib/user_data.sh', 'utf-8')
-    for (var instanceName of ['isucon']) {
+    for (var instanceName of ['isucon1', 'isucon2', 'isucon3']) {
       const instance = new ec2.Instance(this, `${id}-Instance-${instanceName}`, {
         instanceName: instanceName,
         instanceType: instanceType,
